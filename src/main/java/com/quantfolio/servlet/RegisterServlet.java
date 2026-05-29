@@ -1,6 +1,8 @@
 package com.quantfolio.servlet;
 
+import com.quantfolio.dao.AuditDAO;
 import com.quantfolio.dao.UserDAO;
+import com.quantfolio.model.User;
 import com.quantfolio.util.SessionUtil;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
 
     private final UserDAO userDAO = new UserDAO();
+    private final AuditDAO auditDAO = new AuditDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -49,8 +52,12 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
-            boolean success = userDAO.register(name.trim(), email.trim(), password);
-            if (success) {
+            User createdUser = userDAO.registerAndReturn(name.trim(), email.trim(), password);
+            if (createdUser != null) {
+                try {
+                    auditDAO.logAction(createdUser.getUserId(), "REGISTER_USER",
+                            "New account created for " + createdUser.getEmail(), req.getRemoteAddr());
+                } catch (Exception ignored) {}
                 req.setAttribute("success", "Account created! Please log in.");
                 req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
             } else {

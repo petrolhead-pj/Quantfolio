@@ -76,10 +76,10 @@ Enter MySQL root password: ________
 
 ### [PHASE 4] Database Setup
 ```
-✓ Schema created (01_schema.sql)
-✓ Sample data loaded (02_seed_data.sql)
-✓ Views created (03_views.sql)
-✓ Triggers created (04_triggers.sql)
+✓ Schema created (schema.sql)
+✓ Sample data loaded (seed_data.sql)
+✓ Views created (views.sql)
+✓ Triggers created (triggers.sql)
 ```
 
 Database created with:

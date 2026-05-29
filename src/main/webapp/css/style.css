@@ -137,6 +137,36 @@ a:hover { text-decoration: underline; }
 .chart-card-wide canvas { max-height: 220px; }
 @media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } }
 
+/* ---------- SQL Demo ---------- */
+.sql-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.kv-list { display: grid; gap: .65rem; }
+.kv-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: .65rem;
+}
+.kv-row:last-child { border-bottom: none; padding-bottom: 0; }
+.kv-row span { color: var(--muted); font-size: .8rem; text-transform: uppercase; }
+.kv-row strong { color: var(--text); font-weight: 600; overflow-wrap: anywhere; }
+.sql-code {
+    background: #111827;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: #bfdbfe;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: .84rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    padding: 1rem;
+}
+@media (max-width: 900px) {
+    .sql-grid { grid-template-columns: 1fr; }
+    .kv-row { grid-template-columns: 1fr; gap: .2rem; }
+}
+
 /* ---------- Tables ---------- */
 .table-wrap { overflow-x: auto; }
 .data-table { width: 100%; border-collapse: collapse; font-size: .875rem; }

@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    response.sendRedirect(request.getContextPath() + "/dashboard");
+    if (session != null && session.getAttribute("loggedInUser") != null) {
+        response.sendRedirect(request.getContextPath() + "/dashboard");
+    } else {
+        response.sendRedirect(request.getContextPath() + "/login");
+    }
 %>

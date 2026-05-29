@@ -60,10 +60,10 @@ Quantfolio-main/
 ├── src/main/java/...          ← All source code
 ├── src/main/webapp/...        ← JSP files
 ├── db/
-│   ├── 01_schema.sql
-│   ├── 02_seed_data.sql
-│   ├── 03_views.sql
-│   └── 04_triggers.sql
+│   ├── schema.sql
+│   ├── seed_data.sql
+│   ├── views.sql
+│   └── triggers.sql
 └── .git/                       ← Git repository
 ```
 

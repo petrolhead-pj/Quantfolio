@@ -46,15 +46,25 @@ public class UserDAO {
     }
 
     public boolean register(String name, String email, String plainPassword) throws SQLException {
-        if (findByEmail(email) != null) return false;
+        return registerAndReturn(name, email, plainPassword) != null;
+    }
+
+    public User registerAndReturn(String name, String email, String plainPassword) throws SQLException {
+        if (findByEmail(email) != null) return null;
         String sql = "INSERT INTO users (name, email, password_hash, role) VALUES (?,?,?,'user')";
         try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+             PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, PasswordUtil.hash(plainPassword));
-            return ps.executeUpdate() == 1;
+            if (ps.executeUpdate() != 1) return null;
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return findById(keys.getInt(1));
+                }
+            }
         }
+        return null;
     }
 
     public User authenticate(String email, String plainPassword) throws SQLException {

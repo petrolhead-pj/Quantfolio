@@ -1,5 +1,6 @@
 package com.quantfolio.servlet;
 
+import com.quantfolio.dao.AuditDAO;
 import com.quantfolio.dao.UserDAO;
 import com.quantfolio.model.User;
 import com.quantfolio.util.SessionUtil;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     private final UserDAO userDAO = new UserDAO();
+    private final AuditDAO auditDAO = new AuditDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -40,6 +42,10 @@ public class LoginServlet extends HttpServlet {
             User user = userDAO.authenticate(email.trim(), password);
             if (user != null) {
                 SessionUtil.setLoggedInUser(req, user);
+                try {
+                    auditDAO.logAction(user.getUserId(), "LOGIN",
+                            "Successful login for " + user.getEmail(), req.getRemoteAddr());
+                } catch (Exception ignored) {}
                 resp.sendRedirect(req.getContextPath() + "/dashboard");
             } else {
                 req.setAttribute("error", "Invalid email or password.");
