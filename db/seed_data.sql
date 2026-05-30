@@ -38,12 +38,12 @@ INSERT INTO stocks (symbol, company_name, sector_id, current_price) VALUES
 ('AMT',   'American Tower Corporation',    8, 185.30);
 
 -- Demo Users  (passwords are BCrypt hashes)
--- admin123  => $2a$12$...
--- user123   => $2a$12$...
+-- admin123  => $2a$12$arotqLb8oUIPnvFgttC8Iu2GYdYBSLwAfcWvBhbXlFJvZ0UFsHPc.
+-- user123   => $2a$12$aeAfsC4yj6WJKVERHzX3g.to0C9QvtlkXl8KJYsH4uwQxAkk1qcES
 INSERT INTO users (name, email, password_hash, role) VALUES
-('Admin User',  'admin@quantfolio.com', '$2a$12$hBSqUTqZvkJ3v3JYO.jLVOqp/gT2R1vR0.x9kpZ7M8N4uY1wQ6CJa', 'admin'),
-('Alice Sharma','alice@example.com',    '$2a$12$XtFVRh5y0wNrOpJeREfbLuT.rq3bV9KJ6e7Y4jNk1sP2ZmB8eGuOi', 'user'),
-('Bob Kumar',   'bob@example.com',      '$2a$12$XtFVRh5y0wNrOpJeREfbLuT.rq3bV9KJ6e7Y4jNk1sP2ZmB8eGuOi', 'user');
+('Admin User',  'admin@quantfolio.com', '$2a$12$arotqLb8oUIPnvFgttC8Iu2GYdYBSLwAfcWvBhbXlFJvZ0UFsHPc.', 'admin'),
+('Alice Sharma','alice@example.com',    '$2a$12$aeAfsC4yj6WJKVERHzX3g.to0C9QvtlkXl8KJYsH4uwQxAkk1qcES', 'user'),
+('Bob Kumar',   'bob@example.com',      '$2a$12$aeAfsC4yj6WJKVERHzX3g.to0C9QvtlkXl8KJYsH4uwQxAkk1qcES', 'user');
 
 -- Sample Transactions for Alice (user_id = 2)
 INSERT INTO transactions (user_id, stock_id, type, quantity, price, transaction_date) VALUES
