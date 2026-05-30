@@ -5,9 +5,25 @@ services:
     image: mysql:8.0
     container_name: quantfolio_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: your_root_password_here
       MYSQL_DATABASE: quantfolio
     ports:
       - "3306:3306"
     volumes:
       - ./db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: quantfolio_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: quantfolio
+      DB_USER: root
+      DB_PASSWORD: your_root_password_here
+    restart: unless-stopped

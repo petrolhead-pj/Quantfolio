@@ -1,50 +1,28 @@
 @echo off
-REM GitHub Authentication & Push Script
-
-cd /c/Users/pabar/OneDrive/Desktop/Quant/Quantfolio-main
+cd /d "C:\Users\paarth jain\Documents\Quant\Quantfolio"
 
 echo.
-echo ╔════════════════════════════════════════════════════════╗
-echo ║  GitHub Authentication Required                        ║
-echo ║                                                        ║
-echo ║  This will authenticate your GitHub account via gh CLI ║
-echo ║  and then push the Java 21 upgrade to your repo.      ║
-echo ╚════════════════════════════════════════════════════════╝
+echo Pushing Quantfolio to GitHub...
 echo.
 
-REM Authenticate with GitHub
-echo Authenticating with GitHub...
-echo.
-gh auth login --web
+git add .
+git status
 
 echo.
-echo ✓ Authentication complete!
-echo.
+set /p COMMIT_MSG="Enter commit message (or press Enter for default): "
+if "%COMMIT_MSG%"=="" set COMMIT_MSG=Update Quantfolio project
 
-REM Push to GitHub
-echo Pushing to GitHub repository...
-git push -u origin main
+git commit -m "%COMMIT_MSG%"
+git push origin main
 
 if %errorlevel% equ 0 (
     echo.
-    echo ╔════════════════════════════════════════════════════════╗
-    echo ║  ✓ SUCCESS!                                            ║
-    echo ║                                                        ║
-    echo ║  Changes pushed to:                                    ║
-    echo ║  https://github.com/petrolhead-pj/Quantfolio         ║
-    echo ║                                                        ║
-    echo ║  What was pushed:                                      ║
-    echo ║  • Java runtime upgraded to version 21 LTS           ║
-    echo ║  • pom.xml updated (compiler 11 → 21)               ║
-    echo ║  • All source code files                             ║
-    echo ║  • Database scripts (schema & triggers)              ║
-    echo ║  • QUICKSTART.md documentation                       ║
-    echo ║                                                        ║
-    echo ║  Next Step:                                           ║
-    echo ║  Open VSCode and clone the repo to continue work    ║
-    echo ╚════════════════════════════════════════════════════════╝
+    echo SUCCESS - Code pushed to https://github.com/petrolhead-pj/Quantfolio
 ) else (
-    echo ✗ Push failed. Check the error above.
+    echo.
+    echo Push failed. Make sure you are logged in to GitHub.
+    echo Run: git config --global credential.helper manager
+    echo Then try pushing again.
 )
 
 echo.

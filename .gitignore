@@ -16,5 +16,5 @@ Thumbs.db
 # Logs
 *.log
 
-# Credentials (NEVER commit real passwords)
-src/main/java/com/quantfolio/util/DBConnection.java
+# Credentials - NEVER commit real passwords
+src/main/resources/db.properties

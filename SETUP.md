@@ -1,48 +1,49 @@
 # Quick Setup Guide
 
-## 1. Clone & Configure
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/quantfolio.git
-cd quantfolio
+git clone https://github.com/petrolhead-pj/Quantfolio.git
+cd Quantfolio
 ```
 
-Edit `src/main/java/com/quantfolio/util/DBConnection.java`:
-```java
-private static final String DB_URL      = "jdbc:mysql://localhost:3306/quantfolio?useSSL=false&serverTimezone=UTC";
-private static final String DB_USER     = "root";
-private static final String DB_PASSWORD = "your_password";
+## 2. Configure Database Credentials
+
+Edit `src/main/resources/db.properties`:
+```properties
+db.url=jdbc:mysql://localhost:3306/quantfolio?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+db.user=root
+db.password=your_mysql_password
 ```
 
-## 2. Database Setup
+## 3. Database Setup
 
-```sql
-mysql -u root -p
-SOURCE db/schema.sql;
-SOURCE db/seed_data.sql;
-SOURCE db/views.sql;
-SOURCE db/triggers.sql;
+Open MySQL Workbench and run each file via File > Open SQL Script:
+```
+db/schema.sql
+db/seed_data.sql
+db/views.sql
+db/triggers.sql
 ```
 
-## 3. Build & Deploy
+## 4. Build and Run
 
 ```bash
 mvn clean package
-cp target/quantfolio.war $TOMCAT_HOME/webapps/
-# Start Tomcat, open: http://localhost:8080/quantfolio
+mvn jetty:run
 ```
 
-## 4. Demo Login
+Open: http://localhost:8080/quantfolio
 
-| Role     | Email                    | Password  |
-|----------|--------------------------|-----------|
-| Admin    | admin@quantfolio.com     | admin123  |
-| Investor | user1@quantfolio.com     | user123   |
+## 5. Demo Login
 
-## 5. Desktop App (Optional)
+| Role     | Email                | Password |
+|----------|----------------------|----------|
+| Admin    | admin@quantfolio.com | admin123 |
+| Investor | alice@example.com    | user123  |
+
+## 6. Swing Desktop App
 
 ```bash
-cd desktop
-mvn package
-java -jar target/quantfolio-desktop-1.0.jar
+java -cp "target\classes;target\quantfolio\WEB-INF\lib\*" com.quantfolio.desktop.DesktopApp
 ```
